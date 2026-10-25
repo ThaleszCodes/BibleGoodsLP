@@ -39,3 +39,8 @@
 @media(prefers-reduced-motion:reduce){.reveal-ready,.reveal-pending{filter:none!important;opacity:1;translate:none;transition:none!important}}
 
 @media(max-width:680px){.footer{padding-bottom:45px}}
+/* Accordion icons follow the requested state, including while the panel is closing. */
+details summary:after,details[open] summary:after{content:'+';transition:rotate .3s ease;color:var(--blue)}
+details summary[aria-expanded="true"]:after{rotate:45deg}
+details summary[aria-expanded="false"]:after{rotate:0deg}
+@media(prefers-reduced-motion:reduce){details summary:after{transition:none}}

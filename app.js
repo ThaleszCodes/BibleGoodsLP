@@ -61,3 +61,42 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 window.addEventListener('resize', updateProgress);
 updateProgress();
+
+// Animate native details in both directions; repeated clicks reverse from the current height.
+document.querySelectorAll('details').forEach(details => {
+  const summary = details.querySelector('summary');
+  let animation = null;
+  let expanded = details.open;
+  summary.addEventListener('click', event => {
+    event.preventDefault();
+    expanded = !expanded;
+    summary.setAttribute('aria-expanded', String(expanded));
+    if (motionPreference.matches || typeof details.animate !== 'function') {
+      if (animation) { animation.onfinish = null; animation.cancel(); animation = null; }
+      details.open = expanded;
+      details.style.removeProperty('height');
+      details.style.removeProperty('overflow');
+      return;
+    }
+    const from = details.getBoundingClientRect().height;
+    if (animation) { animation.onfinish = null; animation.cancel(); }
+    // Measure natural open and closed heights synchronously, before the browser paints.
+    details.style.height = 'auto';
+    details.open = expanded;
+    const to = details.getBoundingClientRect().height;
+    details.open = true;
+    details.style.height = from + 'px';
+    details.style.overflow = 'hidden';
+    animation = details.animate({height: [from + 'px', to + 'px']}, {
+      duration: 300, easing: 'cubic-bezier(.22,.7,.2,1)', fill: 'forwards'
+    });
+    animation.onfinish = () => {
+      details.open = expanded;
+      details.style.removeProperty('height');
+      details.style.removeProperty('overflow');
+      animation.cancel();
+      animation = null;
+      updateProgress();
+    };
+  });
+});
