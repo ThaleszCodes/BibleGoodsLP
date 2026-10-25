@@ -13,13 +13,6 @@ document.querySelectorAll('a.checkout').forEach(link => {
   }
   link.href = url.toString();
 });
-const bar = document.querySelector('.mobile-bar');
-const hero = document.querySelector('.hero');
-if ('IntersectionObserver' in window) {
-  new IntersectionObserver(entries => {
-    bar.classList.toggle('visible', !entries[0].isIntersecting && hero.getBoundingClientRect().bottom < 0);
-  }).observe(hero);
-}
 // Only prepare offscreen content. Already-visible content must never disappear.
 const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
 if ('IntersectionObserver' in window && !motionPreference.matches) {

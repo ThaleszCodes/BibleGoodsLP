@@ -37,3 +37,5 @@
 .scroll-mist{height:100px;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
 @media(max-width:680px){.scroll-mist{height:92px}}
 @media(prefers-reduced-motion:reduce){.reveal-ready,.reveal-pending{filter:none!important;opacity:1;translate:none;transition:none!important}}
+
+@media(max-width:680px){.footer{padding-bottom:45px}}
