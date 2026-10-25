@@ -44,3 +44,12 @@ details summary:after,details[open] summary:after{content:'+';transition:rotate 
 details summary[aria-expanded="true"]:after{rotate:45deg}
 details summary[aria-expanded="false"]:after{rotate:0deg}
 @media(prefers-reduced-motion:reduce){details summary:after{transition:none}}
+/* Promotional price hierarchy */
+.price-from,.offer-from,.closing-from{color:var(--muted);text-decoration:line-through;text-decoration-thickness:1px;white-space:nowrap}
+.price-note .price-from{font-size:12px;margin-right:4px}
+.offer-price{display:flex;flex-direction:column;align-items:center;gap:3px}
+.offer-price .offer-from{font-size:14px;font-weight:800;letter-spacing:0}
+.offer-price .offer-current{display:block;color:var(--ink);font-size:20px}
+.offer-price .offer-current strong{font-size:54px}
+.closing-from{margin-right:4px}
+@media(max-width:680px){.offer-price .offer-from{font-size:13px}.offer-price .offer-current strong{font-size:49px}}

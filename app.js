@@ -100,3 +100,19 @@ document.querySelectorAll('details').forEach(details => {
     };
   });
 });
+// Price anchoring: keep the promotional reference explicit while preserving fee transparency.
+document.querySelectorAll('.price-note').forEach((node) => {
+  if (!node.textContent.includes('De R$37,90')) {
+    node.innerHTML = '<span class="price-from">De R$37,90</span> <strong>por R$9,90</strong> + R$0,99 de taxa';
+  }
+});
+document.querySelectorAll('.offer-price').forEach((node) => {
+  if (!node.textContent.includes('De R$37,90')) {
+    node.innerHTML = '<span class="offer-from">De R$37,90</span><span class="offer-current">R$ <strong>9,90</strong></span>';
+  }
+});
+document.querySelectorAll('.closing .small').forEach((node) => {
+  if (!node.textContent.includes('De R$37,90')) {
+    node.innerHTML = '<span class="closing-from">De R$37,90</span> por R$9,90 + R$0,99 de taxa · Total: R$10,89';
+  }
+});
