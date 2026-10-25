@@ -20,3 +20,15 @@ if ('IntersectionObserver' in window) {
     bar.classList.toggle('visible', !entries[0].isIntersecting && hero.getBoundingClientRect().bottom < 0);
   }).observe(hero);
 }
+// A single entrance on meaningful visual beats; content remains visible without JavaScript.
+if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const accents = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('arrived');
+        accents.unobserve(entry.target);
+      }
+    });
+  }, {threshold: 0.15});
+  document.querySelectorAll('.faith-pause, .discovery-art, .question-notes, .offer').forEach(el => accents.observe(el));
+}
