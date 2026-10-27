@@ -100,33 +100,3 @@ document.querySelectorAll('details').forEach(details => {
     };
   });
 });
-// Price anchoring: keep the promotional reference explicit while preserving fee transparency.
-document.querySelectorAll('.price-note').forEach((node) => {
-  if (!node.textContent.includes('De R$37,90')) {
-    node.innerHTML = '<span class="price-from">De R$37,90</span> <strong>por R$9,90</strong> + R$0,99 de taxa';
-  }
-});
-document.querySelectorAll('.offer-price').forEach((node) => {
-  if (!node.textContent.includes('De R$37,90')) {
-    node.innerHTML = '<span class="offer-from">De R$37,90</span><span class="offer-current">R$ <strong>9,90</strong></span>';
-  }
-});
-document.querySelectorAll('.closing .small').forEach((node) => {
-  if (!node.textContent.includes('De R$37,90')) {
-    node.innerHTML = '<span class="closing-from">De R$37,90</span> por R$9,90 + R$0,99 de taxa · Total: R$10,89';
-  }
-});
-
-// Keep the public offer focused on the promotional price; service-fee wording is omitted.
-const heroPrice = document.querySelector('.price-note');
-if (heroPrice) heroPrice.innerHTML = '<span class="price-from">De R$37,90</span> <strong>por R$9,90</strong>';
-const offerFee = document.querySelector('.offer-purchase .fee');
-if (offerFee) offerFee.innerHTML = 'Produto digital · acesso enviado por e-mail<br><b>Compra única</b>';
-document.querySelectorAll('.questions details').forEach((item) => {
-  if (item.textContent.includes('taxa de serviço')) {
-    const text = item.querySelector('p');
-    if (text) text.textContent = 'O valor de R$9,90 corresponde somente a A Criação do Mundo. Noé e Colorindo com Jesus são complementos opcionais pagos separadamente.';
-  }
-});
-const closingPrice = document.querySelector('.closing .small');
-if (closingPrice) closingPrice.innerHTML = '<span class="closing-from">De R$37,90</span> por R$9,90 · Produto digital';
