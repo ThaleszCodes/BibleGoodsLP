@@ -100,3 +100,37 @@ document.querySelectorAll('details').forEach(details => {
     };
   });
 });
+
+// Meta tracking: an offer view and a checkout click are not confirmed purchases.
+(() => {
+  const offer = document.querySelector('#oferta');
+  let viewed = false;
+  const trackView = () => {
+    if (viewed || typeof window.fbq !== 'function') return;
+    viewed = true;
+    window.fbq('track', 'ViewContent', {
+      content_ids: ['biblia_goods_30_livros'],
+      content_type: 'product', value: 10, currency: 'BRL'
+    });
+  };
+  if (offer && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting)) {
+        trackView();
+        observer.disconnect();
+      }
+    }, { threshold: 0.25 });
+    observer.observe(offer);
+  }
+  document.querySelectorAll('a[href^="https://pay.cakto.com.br/"]').forEach(link => {
+    link.addEventListener('click', () => {
+      if (typeof window.fbq !== 'function') return;
+      window.fbq('trackCustom', 'CheckoutClick', {
+        value: 10, currency: 'BRL', button_location:
+          link.closest('.hero') ? 'hero' :
+          link.closest('#oferta') ? 'offer' :
+          link.closest('.closing') ? 'closing' : 'footer'
+      });
+    });
+  });
+})();
